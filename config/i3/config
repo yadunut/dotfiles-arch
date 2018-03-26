@@ -26,16 +26,17 @@ font pango:Inconsolata for Powerline 20
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-gaps inner 10
+smart_gaps on
+gaps inner 00
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec termite -e ranger
 
 # start file manager
-bindsym $mod+Shift+Return exec termite -e ranger
+bindsym $mod+Shift+Return exec termite
 bindsym $mod+Shift+y exec termite -e glances
 
 # kill focused window
@@ -110,6 +111,13 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+#Cycle through workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+bindsym $mod+button8 workspace next
+bindsym $mod+button9 workspace prev
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -169,8 +177,8 @@ bindsym XF86MonBrightnessUp exec brightnessctl -inc 100
 bindsym XF86MonBrightnessDown exec brightnessctl -dec 100
 
 #Enable and disable trackpad with keyboard backlight controls
-bindsym XF86AudioPrev exec xinput disable 17
-bindsym XF86AudioNext exec xinput enable 17
+bindsym XF86AudioPrev exec xinput disable 12
+bindsym XF86AudioNext exec xinput enable 12
 
 #Bind Keyboard brightness keys
 bindsym XF86KbdBrightnessUp exec kbdbrightnessctl -inc 20

@@ -15,9 +15,13 @@ set number
 set relativenumber
 "Changes tabs to spaces
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
+"Golang file settings
+au FileType go setlocal tabstop=4
+au FileType go setlocal shiftwidth=4
+au FileType go setlocal noexpandtab
 
 "--------------------------------------------------------------------------------
 "------------------------------------Plugins-------------------------------------
@@ -52,6 +56,17 @@ if dein#load_state('~/.config/nvim/dein')
   call dein#add('vim-airline/vim-airline-themes')
   "Fuzzy File Finding
   call dein#add('Shougo/denite.nvim')
+  "Snippets
+  call dein#add('SirVer/ultisnips')
+  "Rails
+  call dein#add('tpope/vim-rails')
+  "C-Lang Completion
+  call dein#add('zchee/deoplete-clang')
+  "C-Lang support
+  call dein#add('WolfgangMehner/c-support')
+  "Python support
+  call dein#add('zchee/deoplete-jedi')
+
 
   "Required:
   call dein#end()
@@ -76,6 +91,9 @@ syntax enable
 "--------------------------------------------------------------------------------
 "Deoplete
 let g:deoplete#enable_at_startup = 1
+"Deoplete-Clang
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
 "Sets gocode binary
 let g:deoplete#sources#go#gocode_binary = '$GOPATH/bin/gocode'
@@ -108,7 +126,7 @@ nnoremap <C-n> :bnext<CR>
 "Go to previous buffer
 nnoremap <C-b> :bprevious<CR>
 "Close current buffer
-nnoremap <C-m> :bdelete<CR>
+nnoremap <C-v> :bdelete<CR>
 "Escape Insert Mode
 imap jk <Esc>
 "create vertical split
@@ -143,9 +161,9 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 
 "Visual Mode save to register
-vmap <Leader>y "*y
+vmap <Leader>y "+y
 "Visual mode paste from register
-vmap <Leader>p "*p
+vmap <Leader>p "+p
 
 "Tab completion for deoplete
 inoremap <silent><expr> <TAB>
@@ -157,10 +175,8 @@ function! s:check_back_space() abort "{{{
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
+let g:UltiSnipsExpandTrigger="<C-s>"
+
 "Go Specific
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
-
-
-
-
